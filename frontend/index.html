@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <!-- Define a codificação UTF-8 para suportar caracteres especiais -->
+    <meta charset="UTF-8" />
+    <!-- Configura a responsividade para dispositivos móveis -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Define o título da página exibido na aba do navegador -->
+    <title>Lista de Tarefas</title>
+    <!-- Inclui o TailwindCSS via CDN para estilização -->
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 min-h-screen p-4">
+    <!-- Container principal com layout flexível -->
+    <div
+      class="w-[100%] mx-auto flex items-center justify-start flex-col gap-10 p-[150px]"
+    >
+      <!-- Seção do formulário de cadastro -->
+      <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/3">
+        <h2 class="text-xl font-bold mb-4 text-center">Adicionar Tarefa</h2>
+        <form id="task-form" class="space-y-4">
+          <!-- Campo de entrada para o título da tarefa -->
+          <input
+            type="text"
+            id="task-title"
+            placeholder="Título"
+            class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+            aria-label="Título da tarefa"
+          />
+          <!-- Campo de texto para a descrição da tarefa -->
+          <textarea
+            id="task-description"
+            placeholder="Descrição"
+            class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            rows="3"
+            aria-label="Descrição da tarefa"
+          ></textarea>
+          <!-- Botão para submeter o formulário -->
+          <button
+            type="submit"
+            class="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition-colors"
+          >
+            Adicionar
+          </button>
+        </form>
+      </div>
+
+      <!-- Seção da lista de tarefas -->
+      <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-2/3">
+        <h2 class="text-xl font-bold mb-4 text-center">Minhas Tarefas</h2>
+        <select id="filter-tasks" class="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4">
+          <option value="all">Todas</option>
+          <option value="completed">Concluídas</option>
+          <option value="todo">A Fazer</option>
+        </select>
+        <ul id="task-list" class="space-y-2"></ul>
+      </div>
+    </div>
+
+    <!-- Inclui o arquivo JavaScript externo para interação -->
+    <script src="script.js"></script>
+  </body>
+</html>
