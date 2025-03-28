@@ -76,12 +76,6 @@ document.getElementById("cancel-edit").addEventListener("click", () => {
   editModal.classList.add("hidden");
 });
 
-// Adiciona o link para a biblioteca Boxicons no HTML
-const boxiconsLink = document.createElement("link");
-boxiconsLink.rel = "stylesheet";
-boxiconsLink.href = "https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css";
-document.head.appendChild(boxiconsLink);
-
 // Carrega as tarefas quando a página é carregada
 document.addEventListener("DOMContentLoaded", () => {
   if (typeof fetchTasks === "function") {
@@ -173,7 +167,9 @@ async function fetchTasks() {
     // Adiciona as tarefas como linhas na tabela
     filteredTasks.forEach((task) => {
       const row = document.createElement("tr");
-      row.className = `hover:bg-gray-50 ${task.status ? "bg-green-100" : ""}`;
+      row.className = `hover:bg-gray-50 ${
+        task.status ? "bg-green-100 hover:bg-green-200" : ""
+      }`;
 
       // Preenche a linha com os dados da tarefa
       row.innerHTML = `
@@ -220,7 +216,7 @@ async function fetchTasks() {
           <!-- Botão para excluir a tarefa -->
           <button 
             class="delete-btn text-red-500 hover:text-red-700 mx-1" 
-            data-id="${task.id}" 
+            data-id="${task.id}"
             title="Excluir"
           >
             <i class='bx bx-trash text-xl'></i>
@@ -239,9 +235,11 @@ async function fetchTasks() {
         toggleTask(button.dataset.id, button.dataset.status)
       );
     });
+
     document.querySelectorAll(".delete-btn").forEach((button) => {
       button.addEventListener("click", () => deleteTask(button.dataset.id));
     });
+
     document.querySelectorAll(".view-description-btn").forEach((button) => {
       button.addEventListener("click", () => {
         const description = button.dataset.description;
@@ -249,6 +247,7 @@ async function fetchTasks() {
         modal.classList.remove("hidden");
       });
     });
+
     document.querySelectorAll(".edit-btn").forEach((button) => {
       button.addEventListener("click", () => {
         const id = button.dataset.id;
@@ -299,7 +298,7 @@ async function fetchTasks() {
   } catch (error) {
     // Exibe mensagem de erro no console e na interface
     console.error("Erro ao buscar tarefas:", error);
-    taskList.innerHTML = '<p class="text-red-500">Erro ao carregar tarefas</p>';
+    taskList.innerHTML = `<p class="text-red-500">${error.message}</p>`;
   }
 }
 
@@ -317,8 +316,6 @@ async function toggleTask(id, currentStatus) {
       .querySelector(`button[data-id="${id}"]`)
       .closest("tr");
     const title = taskRow.querySelector("td:nth-child(2)").textContent.trim();
-    const description = taskRow.querySelector(".view-description-btn").dataset
-      .description;
 
     // Faz a requisição PUT para atualizar o status da tarefa
     const response = await fetch(`${API_BASE_URL}/${id}`, {
@@ -326,7 +323,6 @@ async function toggleTask(id, currentStatus) {
       headers: { "Content-Type": "application/json; charset=UTF-8" },
       body: JSON.stringify({
         title,
-        description,
         status: newStatus,
       }),
     });

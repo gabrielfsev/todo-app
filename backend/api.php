@@ -15,12 +15,12 @@ $pdo = getDatabaseConnection();
 $requestMethod = $_SERVER['REQUEST_METHOD'];
 
 // Divide o caminho da URL em partes
-$requestUri = trim($_SERVER['REQUEST_URI'], '/');
+$requestUri = trim($_SERVER['REQUEST_URI'], '/'); // return "todo-app/backend/api.php/tarefas/$id"
 $basePath = 'todo-app/backend/api.php'; // Caminho base esperado
-$requestPath = explode('/', str_replace($basePath, '', $requestUri));
+$requestPath = explode('/', str_replace($basePath, '', $requestUri)); // return ['', 'tarefas', '$id']
 
 // Remove partes vazias do array e reindexa
-$requestPath = array_values(array_filter($requestPath));
+$requestPath = array_values(array_filter($requestPath)); // return ['tarefas', '$id']
 
 // Verifica se a rota começa com 'tasks'
 if (!empty($requestPath) && $requestPath[0] === 'tasks') {

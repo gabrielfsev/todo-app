@@ -119,4 +119,4 @@ Exclui uma tarefa pelo ID.
 
 ---
 
-Feito por Gabriel Ferreira Severino.
+Desenvolvido por Gabriel Ferreira Severino.
